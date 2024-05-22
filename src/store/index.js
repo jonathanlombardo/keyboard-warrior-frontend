@@ -25,12 +25,14 @@ export const api = {
   },
 
   // called for register
-  register: (mail, password) => {
+  register: (mail, password, confirmEmail, confirmPassword) => {
     return new Promise((resolve, reject) => {
       let data = new FormData();
       data.append("name", "kwarriors");
       data.append("email", mail);
       data.append("password", password);
+      data.append("confirmEmail", confirmEmail);
+      data.append("confirmPassword", confirmPassword);
 
       axios
         .postForm(api.uri + "auth/register", data)
@@ -76,11 +78,11 @@ export const store = reactive({
   },
 
   // call for signUp a user and fetch token
-  signUp: async (mail, password) => {
+  signUp: async (mail, password, confirmEmail, confirmPassword) => {
     return new Promise((resolve) => {
       store.loading = true;
       api
-        .register(mail, password)
+        .register(mail, password, confirmEmail, confirmPassword)
         // on success fill authToken
         .then((res) => {
           console.log("then");
