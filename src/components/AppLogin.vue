@@ -7,6 +7,7 @@ export default {
     return {
       store,
       isLogin: true,
+      name: null,
       mail: null,
       confirmMail: null,
       password: null,
@@ -26,6 +27,7 @@ export default {
     },
 
     clearFields() {
+      this.name = null;
       this.mail = null;
       this.confirmMail = null;
       this.password = null;
@@ -37,7 +39,7 @@ export default {
         await store.signIn(this.mail, this.password);
         this.$router.push({ name: "home" });
       } else {
-        await store.signUp(this.mail, this.password, this.confirmMail, this.confirmPassword);
+        await store.signUp(this.name, this.mail, this.password, this.confirmMail, this.confirmPassword);
         this.$router.push({ name: "home" });
       }
       // this.$router.go(-1);
@@ -74,6 +76,15 @@ export default {
       </li>
     </ul>
     <div class="form-wrapper border border-top-0 pt-3 px-3">
+      <div v-if="!isLogin" class="mb-3">
+        <label for="name" class="form-label">Nickname</label>
+        <input @input="clearError('name')" v-model="name" type="text" :class="['form-control', { 'is-invalid': store.loginError?.name }]" id="name" placeholder="nickname" />
+        <div class="invalid-feedback">
+          <span v-for="error in store.loginError?.name">
+            {{ error }}
+          </span>
+        </div>
+      </div>
       <div class="mb-3">
         <label for="mail" class="form-label">Mail</label>
         <input @input="clearError('email')" v-model="mail" type="email" :class="['form-control', { 'is-invalid': store.loginError?.email }]" id="mail" placeholder="name@example.com" />

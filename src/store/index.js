@@ -16,7 +16,7 @@ export const api = {
       axios
         .postForm(api.uri + "auth/login", data)
         .then((res) => {
-          resolve(res.data.token);
+          resolve(res.data);
         })
         .catch((err) => {
           reject(err.response.data);
@@ -25,10 +25,10 @@ export const api = {
   },
 
   // called for register
-  register: (mail, password, confirmEmail, confirmPassword) => {
+  register: (name, mail, password, confirmEmail, confirmPassword) => {
     return new Promise((resolve, reject) => {
       let data = new FormData();
-      data.append("name", "kwarriors");
+      data.append("name", name);
       data.append("email", mail);
       data.append("password", password);
       data.append("confirmEmail", confirmEmail);
@@ -37,7 +37,7 @@ export const api = {
       axios
         .postForm(api.uri + "auth/register", data)
         .then((res) => {
-          resolve(res.data.token);
+          resolve(res.data);
         })
         .catch((err) => {
           reject(err.response.data);
@@ -45,6 +45,11 @@ export const api = {
     });
   },
 };
+
+export const user = reactive({
+  name: null,
+  mail: null,
+});
 
 export const store = reactive({
   // authorization token
@@ -63,7 +68,9 @@ export const store = reactive({
         // on success fill authToken
         .then((res) => {
           store.loginError = null;
-          store.authToken = res;
+          store.authToken = res.token;
+          user.name = res.userName;
+          user.mail = res.userMail;
         })
         // on reject fill loginError
         .catch((err) => {
@@ -78,16 +85,18 @@ export const store = reactive({
   },
 
   // call for signUp a user and fetch token
-  signUp: async (mail, password, confirmEmail, confirmPassword) => {
+  signUp: async (name, mail, password, confirmEmail, confirmPassword) => {
     return new Promise((resolve) => {
       store.loading = true;
       api
-        .register(mail, password, confirmEmail, confirmPassword)
-        // on success fill authToken
+        .register(name, mail, password, confirmEmail, confirmPassword)
+        // on success fill authToken and user info
         .then((res) => {
           console.log("then");
           store.loginError = null;
-          store.authToken = res;
+          store.authToken = res.token;
+          user.name = res.userName;
+          user.mail = res.userMail;
         })
         // on reject fill loginError
         .catch((err) => {
