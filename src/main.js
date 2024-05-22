@@ -5,8 +5,8 @@ import { router } from "./router.js";
 // import font awesome icons
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faHippo } from "@fortawesome/free-solid-svg-icons";
-library.add(faHippo);
+import { faHippo, faSpinner } from "@fortawesome/free-solid-svg-icons";
+library.add(faHippo, faSpinner);
 
 const app = createApp(App);
 app.use(router);

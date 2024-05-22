@@ -1,6 +1,6 @@
 <script>
-// import MyComp from './components/MyComp.vue';
 // import {store} from './store/index.js'
+import AppLoader from "./components/partial/AppLoader.vue";
 import axios from "axios";
 import { store } from "./store";
 
@@ -20,7 +20,7 @@ export default {
     // ...
   },
 
-  components: {},
+  components: { AppLoader },
 
   created() {},
 };
@@ -28,6 +28,7 @@ export default {
 
 <template>
   <router-view />
+  <app-loader v-if="store.loading" />
 </template>
 
 <style lang="scss">

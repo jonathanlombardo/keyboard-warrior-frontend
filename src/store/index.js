@@ -54,43 +54,49 @@ export const store = reactive({
 
   // call for signIn a user and fetch token
   signIn: async (mail, password) => {
-    store.loading = true;
-    api
-      .login(mail, password)
-      // on success fill authToken
-      .then((res) => {
-        store.loginError = null;
-        store.authToken = res;
-      })
-      // on reject fill loginError
-      .catch((err) => {
-        store.loginError = err.errors;
-        store.authToken = null;
-      })
-      .finally(() => {
-        store.loading = false;
-      });
+    return new Promise((resolve) => {
+      store.loading = true;
+      api
+        .login(mail, password)
+        // on success fill authToken
+        .then((res) => {
+          store.loginError = null;
+          store.authToken = res;
+        })
+        // on reject fill loginError
+        .catch((err) => {
+          store.loginError = err.errors;
+          store.authToken = null;
+        })
+        .finally(() => {
+          store.loading = false;
+          resolve();
+        });
+    });
   },
 
   // call for signUp a user and fetch token
   signUp: async (mail, password) => {
-    store.loading = true;
-    api
-      .register(mail, password)
-      // on success fill authToken
-      .then((res) => {
-        console.log("then");
-        store.loginError = null;
-        store.authToken = res;
-      })
-      // on reject fill loginError
-      .catch((err) => {
-        console.log("catch");
-        store.loginError = err.errors;
-        store.authToken = null;
-      })
-      .finally(() => {
-        store.loading = false;
-      });
+    return new Promise((resolve) => {
+      store.loading = true;
+      api
+        .register(mail, password)
+        // on success fill authToken
+        .then((res) => {
+          console.log("then");
+          store.loginError = null;
+          store.authToken = res;
+        })
+        // on reject fill loginError
+        .catch((err) => {
+          console.log("catch");
+          store.loginError = err.errors;
+          store.authToken = null;
+        })
+        .finally(() => {
+          store.loading = false;
+          resolve();
+        });
+    });
   },
 });
