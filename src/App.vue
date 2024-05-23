@@ -2,7 +2,7 @@
 // import {store} from './store/index.js'
 import AppLoader from "./components/partial/AppLoader.vue";
 import axios from "axios";
-import { store } from "./store";
+import { store, user } from "./store";
 
 export default {
   data() {
@@ -22,7 +22,9 @@ export default {
 
   components: { AppLoader },
 
-  created() {},
+  created() {
+    // user.checkUser();
+  },
 };
 </script>
 
