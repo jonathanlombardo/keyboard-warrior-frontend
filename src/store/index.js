@@ -45,13 +45,12 @@ export const api = {
   logout: "/logout",
   user: "/api/user",
   csrf: "/sanctum/csrf-cookie",
-  lions: "/api/lions",
+  initLions: "/api/lions",
 };
 
 export const auth = reactive({
   loginError: null,
 
-  // login the user
   login: (email, password) => {
     return new Promise(async (resolve) => {
       // includes csrf token in the request

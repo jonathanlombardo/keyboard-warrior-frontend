@@ -24,7 +24,7 @@ const routes = [
     component: InitGame,
     name: "initGame",
     meta: {
-      requiresAuth: true,
+      requiresFromHome: true,
     },
   },
   {
@@ -42,7 +42,7 @@ export const router = createRouter({
   routes,
 });
 
-// redirect routes where auth doesn't match
+// redirect conditional routes
 router.beforeEach(async (to, from, next) => {
   if (to.matched.some((record) => record.meta.requiresAuth)) {
     // this route requires auth
@@ -74,7 +74,15 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
+  } else if (to.matched.some((record) => record.meta.requiresFromHome)) {
+    // this route requires from home
+    // check if is from home and redir if not
+    if (from.name != "home") {
+      next({ name: "home" });
+    } else {
+      next();
+    }
   } else {
-    next(); // does not require auth
+    next(); // does not require anything
   }
 });
