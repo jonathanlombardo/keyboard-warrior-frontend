@@ -1,6 +1,7 @@
 import { createWebHistory, createRouter } from "vue-router";
 import { user, store } from "./store";
 import AppHome from "./components/AppHome.vue";
+import InitGame from "./components/InitGame.vue";
 import AppLogin from "./components/AppLogin.vue";
 import AppTest from "./components/AppTest.vue";
 
@@ -14,6 +15,14 @@ const routes = [
     path: "/home",
     component: AppHome,
     name: "home",
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: "/init",
+    component: InitGame,
+    name: "initGame",
     meta: {
       requiresAuth: true,
     },
