@@ -9,7 +9,7 @@ export default {
       user,
       lions: [],
       choosedLions: [],
-      lionsToChoose: 3,
+      lionsToChoose: 0,
     };
   },
 
@@ -51,7 +51,9 @@ export default {
         .post(api.uri + api.destroyUnchoosed, { ids: choosedIds })
         .then((res) => {
           store.loading = false;
-          this.$router.push({ name: "play" });
+          if (res.data == "success") {
+            this.$router.push({ name: "play" });
+          }
         })
         .catch((err) => {
           store.loading = false;
@@ -69,7 +71,8 @@ export default {
     axios
       .get(api.uri + api.initLions)
       .then((res) => {
-        this.lions = res.data;
+        this.lions = res.data.lions;
+        this.lionsToChoose = res.data.nLions;
         console.log(this.lions);
       })
       .catch((err) => {
