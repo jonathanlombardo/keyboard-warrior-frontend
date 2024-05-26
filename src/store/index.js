@@ -46,6 +46,8 @@ export const api = {
   user: "/api/user",
   csrf: "/sanctum/csrf-cookie",
   initLions: "/api/lions",
+  destroyUnchoosed: "/api/destroy",
+  recalcAll: "/api/recalc",
 };
 
 export const auth = reactive({

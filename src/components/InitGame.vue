@@ -40,7 +40,23 @@ export default {
     },
 
     play() {
-      //...
+      const choosedIds = this.choosedLions.map((lion) => {
+        return lion.id;
+      });
+
+      axios.defaults.withCredentials = true;
+      axios.defaults.withXSRFToken = true;
+      store.loading = true;
+      axios
+        .post(api.uri + api.destroyUnchoosed, { ids: choosedIds })
+        .then((res) => {
+          store.loading = false;
+          this.$router.push({ name: "play" });
+        })
+        .catch((err) => {
+          store.loading = false;
+          console.warn(err);
+        });
     },
   },
 

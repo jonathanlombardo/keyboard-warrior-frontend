@@ -23,6 +23,9 @@ export default {
     handleNewGameClick() {
       this.$router.push({ name: "initGame" });
     },
+    handleLoadGameClick() {
+      this.$router.push({ name: "play" });
+    },
   },
 
   components: {},
@@ -39,7 +42,7 @@ export default {
     <h1 class="text-center mt-3"><font-awesome-icon icon="fa-solid fa-hippo" class="me-3" />HELLO {{ user.name }}, You're Home!</h1>
     <div class="row flex-column align-items-center g-3 mt-3">
       <div @click="handleNewGameClick()" class="col text-center fs-3 menuOpt">New Game</div>
-      <div class="col text-center fs-3 menuOpt">Load Game</div>
+      <div @click="handleLoadGameClick()" class="col text-center fs-3 menuOpt">Load Game</div>
       <div class="col text-center fs-3 menuOpt">Options</div>
     </div>
   </div>

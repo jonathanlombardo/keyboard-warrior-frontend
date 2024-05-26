@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import { user, store } from "./store";
 import AppHome from "./components/AppHome.vue";
 import InitGame from "./components/InitGame.vue";
+import PlayGame from "./components/PlayGame.vue";
 import AppLogin from "./components/AppLogin.vue";
 import AppTest from "./components/AppTest.vue";
 
@@ -24,7 +25,17 @@ const routes = [
     component: InitGame,
     name: "initGame",
     meta: {
-      requiresFromHome: true,
+      requiresFrom: ["home"],
+      redirect: "home",
+    },
+  },
+  {
+    path: "/play",
+    component: PlayGame,
+    name: "play",
+    meta: {
+      requiresFrom: ["home", "initGame"],
+      redirect: "home",
     },
   },
   {
@@ -74,11 +85,11 @@ router.beforeEach(async (to, from, next) => {
     } else {
       next();
     }
-  } else if (to.matched.some((record) => record.meta.requiresFromHome)) {
+  } else if (to.matched.some((record) => record.meta.requiresFrom)) {
     // this route requires from home
     // check if is from home and redir if not
-    if (from.name != "home") {
-      next({ name: "home" });
+    if (!to.meta.requiresFrom.includes(from.name)) {
+      next({ name: to.meta.redirect });
     } else {
       next();
     }

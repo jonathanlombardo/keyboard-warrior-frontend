@@ -1,12 +1,14 @@
 <script>
 // import MyComp from './components/MyComp.vue';
-import { api } from "../store/index.js";
+// import {store} from './store/index.js'
 import axios from "axios";
+import { user, auth, api, store } from "../store/index.js";
 
 export default {
   data() {
     return {
-      ids: [78, 79, 80],
+      // store,
+      // ...
     };
   },
 
@@ -24,7 +26,7 @@ export default {
     axios.defaults.withCredentials = true;
     axios.defaults.withXSRFToken = true;
     axios
-      .post(api.uri + "/api/destroy", { ids: this.ids })
+      .get(api.uri + api.recalcAll)
       .then((res) => {
         console.log(res.data);
       })
@@ -37,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <h1>TEST</h1>
+  <h1>PLAY</h1>
 </template>
 
 <style lang="scss" scoped></style>
