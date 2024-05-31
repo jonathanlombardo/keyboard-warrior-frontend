@@ -1,7 +1,14 @@
-# Vue 3 + Vite
+#KeyboardWarriors
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+### About
 
-## Recommended IDE Setup
+A little strategic game where we menage a team of keyboard warriors against the great powers. Each warrior (here called Lion) has several plots that he supports and others unsupported. Your goal is create a to create a well-synergised team and answer to posts from other keyboard warriors to convince them to get on your side.
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+### Tecnologies & Features
+
+// under development
+
+### Init and run
+
+`npm i` <br>
+`npm run dev`
